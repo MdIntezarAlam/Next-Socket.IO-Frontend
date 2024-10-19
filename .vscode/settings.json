@@ -1,0 +1,21 @@
+{
+  "editor.formatOnPaste": true,
+  "css.lint.unknownAtRules": "ignore",
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.renderLineHighlight": "none",
+  "editor.lineNumbers": "on",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#131313"
+  },
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "other": "on",
+    "strings": "on"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
