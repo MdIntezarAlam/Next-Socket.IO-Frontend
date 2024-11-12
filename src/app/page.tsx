@@ -65,7 +65,7 @@ export default function Page() {
             <div className='flex w-full flex-col gap-2'>
               <Input
                 type='text'
-                placeholder='Enter username'
+                placeholder='Enter your name'
                 value={formData.username}
                 onChange={(e) =>
                   setFormData((prev) => ({
@@ -73,6 +73,7 @@ export default function Page() {
                     username: e.target.value,
                   }))
                 }
+                className='!h-10 !rounded-full placeholder:text-xs'
               />
               <p className='text-destructive'>{nameErr}</p>
             </div>
@@ -87,10 +88,11 @@ export default function Page() {
                     roomId: e.target.value,
                   }))
                 }
+                className='!h-10 !rounded-full placeholder:text-xs'
               />
               <p className='text-destructive'>{roomErr}</p>
             </div>
-            <Button onClick={joinRoomForChat} className='!w-full'>
+            <Button onClick={joinRoomForChat} className='!w-full !rounded-full'>
               Join Room
             </Button>
           </section>
@@ -108,7 +110,7 @@ export default function Page() {
             {showChatBox && <ChatBox room={room} socket={socket} />}
           </section>
         ) : (
-          <div className='col-span-3 flex h-full w-full items-center justify-center bg-secondary/50 text-center text-lg font-bold md:text-2xl'>
+          <div className='col-span-3 hidden h-full w-full items-center justify-center bg-secondary/50 text-center text-lg font-bold md:text-2xl lg:flex'>
             Waiting for you to fill the form to start Chatting.
           </div>
         )}
@@ -145,27 +147,27 @@ const ChatBox = ({
         setCurMessage('');
       }
     } catch (error: any) {
-      console.log('getting err while sending message', error);
+      // console.log('getting err while sending message', error);
     }
   };
 
   useEffect(() => {
     socket.on('load_message', (message: TypeRoom[]) => {
       // load msg
-      console.log('loading prev msg with this id', socket.id);
+      // console.log('loading prev msg with this id', socket.id);
       setMessageList(message);
     });
 
     socket.on('recive_message', (data: TypeRoom) => {
       // send msg
-      console.log('sending msg with this id', data);
+      // console.log('sending msg with this id', data);
       setMessageList((list) => [...list, data]);
     });
 
     return () => {
       socket.off('recive_message');
       socket.off('load_message');
-      console.log('Clean up the listeners when the component unmounts');
+      // console.log('Clean up the listeners when the component unmounts');
     };
   });
 
@@ -218,11 +220,11 @@ const ChatBox = ({
           onKeyPress={(event) => {
             if (event.key === 'Enter') sendMessageController();
           }}
-          className='!h-14 w-full overflow-hidden border-0 bg-transparent outline-none placeholder:text-foreground'
+          className='w-full overflow-hidden border-0 bg-transparent outline-none placeholder:text-foreground lg:!h-14'
         />
         <Button
           onClick={sendMessageController}
-          className='!h-full !rounded-none !rounded-r-md px-14 text-2xl'
+          className='!h-full !rounded-full px-10 text-sm lg:px-14 lg:text-2xl'
         >
           send
         </Button>
