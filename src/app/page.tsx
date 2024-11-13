@@ -7,9 +7,9 @@ import { type TypeRoom, useRoom } from '@/lib/slice/useRoom';
 import { cn } from '@/lib/utils';
 import React, { useEffect, useRef, useState } from 'react';
 import { io, type Socket } from 'socket.io-client';
-const SOCKET_URL = 'https://chatme-qulw.onrender.com/';
+// const SOCKET_URL = 'https://chatme-qulw.onrender.com/';
 
-const socket: Socket = io(SOCKET_URL);
+const socket: Socket = io(process.env.NEXT_PUBLIC_SOCKET_URL);
 
 export default function Page() {
   const [showChatBox, setShowChatBox] = useState<boolean>(false);
