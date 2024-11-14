@@ -42,7 +42,9 @@ export default function Page() {
     }
 
     if (formData.username && formData.roomId !== '') {
-      socket.emit('join_room', formData.roomId);
+      socket.emit('join_room', formData.roomId, {
+        withcredentials: true,
+      });
 
       setRoom({
         roomId: formData.roomId,
@@ -143,7 +145,7 @@ const ChatBox = ({
             ':' +
             new Date(Date.now()).getMinutes(),
         };
-        socket.emit('send_message', { ...messageData, room });
+        socket.emit('send_message', { ...messageData, room, });
         setMessageList((list) => [...list, messageData]);
         setCurMessage('');
       }
@@ -154,21 +156,19 @@ const ChatBox = ({
 
   useEffect(() => {
     socket.on('load_message', (message: TypeRoom[]) => {
-      // load msg
-      // console.log('loading prev msg with this id', socket.id);
+      console.log('loading prev msg with this id', socket.id);
       setMessageList(message);
     });
 
     socket.on('recive_message', (data: TypeRoom) => {
-      // send msg
-      // console.log('sending msg with this id', data);
+      console.log('sending msg with this id', data);
       setMessageList((list) => [...list, data]);
     });
 
     return () => {
       socket.off('recive_message');
       socket.off('load_message');
-      // console.log('Clean up the listeners when the component unmounts');
+      console.log('Clean up the listeners when the component unmounts');
     };
   });
 
